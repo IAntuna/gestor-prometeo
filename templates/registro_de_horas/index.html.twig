@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Registros de Horas{% endblock %}
+
+{% block body %}
+    <h1 class="mb-4">Registros de Horas</h1>
+
+    <table class="table table-striped table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th>Id</th>
+                <th>Fecha</th>
+                <th>Horas</th>
+                <th>Comentario</th>
+                <th>Usuario</th>
+                <th>Tarea</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for registro_de_hora in registro_de_horas %}
+            <tr>
+                <td>{{ registro_de_hora.id }}</td>
+                <td>{{ registro_de_hora.fecha ? registro_de_hora.fecha|date('Y-m-d') : '' }}</td>
+                <td>{{ registro_de_hora.horas }}</td>
+                <td>{{ registro_de_hora.comentario }}</td>
+                <td>{{ registro_de_hora.user.nombre }}</td>
+                <td>{{ registro_de_hora.tarea.nombre }}</td>
+                <td>
+                    <a href="{{ path('app_registro_de_horas_show', {'id': registro_de_hora.id}) }}" class="btn btn-sm btn-primary">Ver</a>
+                    <a href="{{ path('app_registro_de_horas_edit', {'id': registro_de_hora.id}) }}" class="btn btn-sm btn-secondary">Editar</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7" class="text-center">No se encontraron registros.</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_registro_de_horas_new') }}" class="btn btn-success mt-3">Crear nuevo</a>
+{% endblock %}

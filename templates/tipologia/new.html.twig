@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Crear Tipología{% endblock %}
+
+{% block body %}
+    <h1 class="mb-4">Crear Tipología</h1>
+
+    {{ include('tipologia/_form.html.twig') }}
+
+    <a href="{{ path('app_tipologia_index') }}" class="btn btn-secondary mt-3">Volver a la lista</a>
+{% endblock %}

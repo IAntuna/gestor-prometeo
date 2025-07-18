@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Editar Registro de Horas{% endblock %}
+
+{% block body %}
+    <h1 class="mb-4">Editar Registro de Horas</h1>
+
+    {{ include('registro_de_horas/_form.html.twig', {'button_label': 'Actualizar'}) }}
+
+    <a href="{{ path('app_registro_de_horas_index') }}" class="btn btn-secondary mt-3">Volver a la lista</a>
+
+    {{ include('registro_de_horas/_delete_form.html.twig') }}
+{% endblock %}

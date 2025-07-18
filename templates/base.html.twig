@@ -4,14 +4,71 @@
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
-        {% block stylesheets %}
-        {% endblock %}
-
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+        <style>
+            body {
+                padding-top: 70px; 
+            }
+            .navbar-custom {
+                background-color: #343a40; 
+            }
+            .navbar-custom .nav-link {
+                color: #fff;
+                margin-right: 1rem;
+            }
+            .navbar-custom .nav-link.active, 
+            .navbar-custom .nav-link:hover {
+                color: #ffc107; 
+            }
+            .navbar-text strong {
+                color: #ffc107; 
+            }
+        </style>
+        {% block stylesheets %}{% endblock %}
         {% block javascripts %}
             {% block importmap %}{{ importmap('app') }}{% endblock %}
         {% endblock %}
     </head>
     <body>
-        {% block body %}{% endblock %}
+        {% set current_route = app.request.attributes.get('_route') %}
+
+        {% if current_route != 'app_login' %}
+            <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="{{ path('app_dashboard') }}">Gestor</a>
+
+                    <div class="collapse navbar-collapse">
+                        <div class="d-flex align-items-center">
+                            {% if is_granted('ROLE_USER') %}
+                                <a class="nav-link {% if current_route == 'app_dashboard' %}active{% endif %}" href="{{ path('app_dashboard') }}">Inicio</a>
+                            {% endif %}
+                            {% if is_granted('ROLE_GESTOR') %}
+                                <a class="nav-link {% if current_route starts with 'app_proyecto' %}active{% endif %}" href="{{ path('app_proyecto_index') }}">Proyectos</a>
+                            {% endif %}
+                            {% if is_granted('ROLE_EMPLEADO') %}
+                                <a class="nav-link {% if current_route starts with 'app_tarea' %}active{% endif %}" href="{{ path('app_tarea_index') }}">Tareas</a>
+                                <a class="nav-link {% if current_route starts with 'app_registro_de_horas' %}active{% endif %}" href="{{ path('app_registro_de_horas_index') }}">Registros de Horas</a>
+                            {% endif %}
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <a class="nav-link {% if current_route starts with 'app_tipologia' %}active{% endif %}" href="{{ path('app_tipologia_index') }}">Tipologías</a>
+                            {% endif %}
+                        </div>
+
+                        {% if app.user %}
+                            <div class="ms-auto d-flex align-items-center">
+                                <span class="navbar-text me-3">
+                                    Bienvenido, <strong>{{ app.user.nombre }}</strong>
+                                </span>
+                                <a class="btn btn-outline-light btn-sm" href="{{ path('app_logout') }}">Cerrar sesión</a>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </nav>
+        {% endif %}
+
+        <div class="container">
+            {% block body %}{% endblock %}
+        </div>
     </body>
 </html>

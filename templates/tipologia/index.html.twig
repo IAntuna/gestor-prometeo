@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tipologías{% endblock %}
+
+{% block body %}
+    <h1 class="mb-4">Tipologías</h1>
+
+    <table class="table table-striped table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for tipologium in tipologias %}
+            <tr>
+                <td>{{ tipologium.id }}</td>
+                <td>{{ tipologium.nombre }}</td>
+                <td>
+                    <a href="{{ path('app_tipologia_show', {'id': tipologium.id}) }}" class="btn btn-sm btn-primary">Ver</a>
+                    <a href="{{ path('app_tipologia_edit', {'id': tipologium.id}) }}" class="btn btn-sm btn-secondary">Editar</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3" class="text-center">No se encontraron registros.</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_tipologia_new') }}" class="btn btn-success mt-3">Crear nuevo</a>
+{% endblock %}
+

@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inicio{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="example-wrapper">
+    <h1>Dashboard</h1>
+        <div>
+            <h2>Total de Proyectos</h2>
+            <p>{{ totalProyectos }}</p>
+        </div>
+
+        <div>
+            <h2>Total de Tareas</h2>
+            <p>{{ totalTareas }}</p>
+        </div>
+
+        <div>
+            <h2>Total de Horas</h2>
+            <p>{{ totalHoras }}</p>
+        </div>
+
+</div>
+{% endblock %}

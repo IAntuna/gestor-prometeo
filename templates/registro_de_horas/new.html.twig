@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Crear Registro de Horas{% endblock %}
+
+{% block body %}
+    <h1 class="mb-4">Crear Registro de Horas</h1>
+
+    {{ include('registro_de_horas/_form.html.twig') }}
+
+    <a href="{{ path('app_registro_de_horas_index') }}" class="btn btn-secondary mt-3">Volver a la lista</a>
+{% endblock %}

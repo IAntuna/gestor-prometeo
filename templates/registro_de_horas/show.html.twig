@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Detalle del Registro de Horas{% endblock %}
+
+{% block body %}
+    <h1 class="mb-4">Detalle del Registro de Horas</h1>
+
+    <table class="table table-bordered">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ registro_de_hora.id }}</td>
+            </tr>
+            <tr>
+                <th>Fecha</th>
+                <td>{{ registro_de_hora.fecha ? registro_de_hora.fecha|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Horas</th>
+                <td>{{ registro_de_hora.horas }}</td>
+            </tr>
+            <tr>
+                <th>Comentario</th>
+                <td>{{ registro_de_hora.comentario }}</td>
+            </tr>
+            <tr>
+                <th>Usuario</th>
+                <td>{{ registro_de_hora.user.nombre }}</td>
+            </tr>
+            <tr>
+                <th>Tarea</th>
+                <td>{{ registro_de_hora.tarea.nombre }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_registro_de_horas_index') }}" class="btn btn-secondary mt-3">Volver a la lista</a>
+    <a href="{{ path('app_registro_de_horas_edit', {'id': registro_de_hora.id}) }}" class="btn btn-primary mt-3">Editar</a>
+
+    {{ include('registro_de_horas/_delete_form.html.twig') }}
+{% endblock %}
